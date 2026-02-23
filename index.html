@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flowers</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="intro-screen" id="intro">
+      <h1>For You</h1>
+      <button id="bloom-btn">Because I couldn't buy you flowers...</button>
+    </div>
+
+    <div class="container" id="flower-stage" style="display: none">
+      <div class="glass">
+        <div class="shine"></div>
+      </div>
+      <div class="thorns">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="leaves">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="petals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="deadPetals">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <!-- Replay Button (appears later) -->
+      <button id="replay-btn" style="display: none">Replay Magic</button>
+    </div>
+
+    <script>
+      const btn = document.getElementById("bloom-btn");
+      const replayBtn = document.getElementById("replay-btn");
+      const intro = document.getElementById("intro");
+      const flowerStage = document.getElementById("flower-stage");
+
+      // Function to start the magic
+      function startMagic() {
+        intro.classList.add("fade-out");
+        setTimeout(() => {
+          intro.style.display = "none";
+          flowerStage.style.display = "block";
+          // Force a tiny delay so the browser notices the display:block
+          setTimeout(() => {
+            flowerStage.classList.add("fade-in");
+          }, 50);
+
+          // Show replay button after the 8s bloom finishes
+          setTimeout(() => {
+            replayBtn.style.display = "block";
+          }, 8500);
+        }, 1000);
+      }
+
+      btn.addEventListener("click", startMagic);
+
+      replayBtn.addEventListener("click", () => {
+        // 1. Hide everything immediately
+        flowerStage.classList.remove("fade-in");
+        flowerStage.style.display = "none";
+        replayBtn.style.display = "none";
+
+        // 2. Reset the intro screen
+        intro.style.display = "block";
+        intro.classList.remove("fade-out");
+
+        // 3. Trigger reflow to reset animations
+        void flowerStage.offsetWidth;
+      });
+    </script>
+  </body>
+</html>
